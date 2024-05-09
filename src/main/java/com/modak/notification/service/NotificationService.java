@@ -39,7 +39,7 @@ public class NotificationService {
                    if((instant.minusSeconds(notification.getNotificationType().getIntervalInSeconds())).isAfter(notification.getDateSent())) {
                        return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + notification.getRecipient());
                    }
-                   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not send more Notifications" + notification.getRecipient()+" Exceded Quantity of Requests");
+                   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not send more Notifications " + notification.getRecipient()+" Exceded Quantity of Requests");
                }
            }
         }
