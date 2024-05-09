@@ -19,5 +19,4 @@ Request(EXAMPLE):
 Responses:
 200 OK: The notification was successfully sent.
 500 Internal Server Error: Could not send more Notifications "Recipient" Exceded Quantity of Requests
-
 500 Internal Server Error: An error occurred while sending the notification.
