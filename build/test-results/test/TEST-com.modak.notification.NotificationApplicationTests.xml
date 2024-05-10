@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.modak.notification.NotificationApplicationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-05-10T00:34:21" hostname="LEGION" time="0.6">
+<testsuite name="com.modak.notification.NotificationApplicationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-05-10T03:17:52" hostname="LEGION" time="0.983">
   <properties/>
-  <testcase name="testSendNotification_Success_After()" classname="com.modak.notification.NotificationApplicationTests" time="0.59"/>
-  <testcase name="testSendNotification_Success()" classname="com.modak.notification.NotificationApplicationTests" time="0.002"/>
-  <testcase name="contextLoads()" classname="com.modak.notification.NotificationApplicationTests" time="0.002"/>
-  <testcase name="testSendNotification_RateLimitExceeded()" classname="com.modak.notification.NotificationApplicationTests" time="0.002"/>
-  <system-out><![CDATA[21:34:20.249 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.modak.notification.NotificationApplicationTests]: NotificationApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:34:20.339 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.modak.notification.NotificationApplication for test class com.modak.notification.NotificationApplicationTests
+  <testcase name="testSendNotification_Success_After()" classname="com.modak.notification.NotificationApplicationTests" time="0.964"/>
+  <testcase name="testSendNotification_Success()" classname="com.modak.notification.NotificationApplicationTests" time="0.004"/>
+  <testcase name="contextLoads()" classname="com.modak.notification.NotificationApplicationTests" time="0.004"/>
+  <testcase name="testSendNotification_RateLimitExceeded()" classname="com.modak.notification.NotificationApplicationTests" time="0.005"/>
+  <system-out><![CDATA[00:17:49.930 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.modak.notification.NotificationApplicationTests]: NotificationApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:17:50.093 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.modak.notification.NotificationApplication for test class com.modak.notification.NotificationApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -16,9 +16,9 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2024-05-09T21:34:20.672-03:00  INFO 27412 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : Starting NotificationApplicationTests using Java 17.0.11 with PID 27412 (started by javie in C:\Users\javie\Downloads\notifications\notification)
-2024-05-09T21:34:20.673-03:00  INFO 27412 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : No active profile set, falling back to 1 default profile: "default"
-2024-05-09T21:34:21.603-03:00  INFO 27412 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : Started NotificationApplicationTests in 1.108 seconds (process running for 2.086)
+2024-05-10T00:17:50.629-03:00  INFO 13596 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : Starting NotificationApplicationTests using Java 17.0.11 with PID 13596 (started by javie in C:\Users\javie\Downloads\notifications\notification)
+2024-05-10T00:17:50.631-03:00  INFO 13596 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2024-05-10T00:17:52.094-03:00  INFO 13596 --- [notification] [    Test worker] c.m.n.NotificationApplicationTests       : Started NotificationApplicationTests in 1.754 seconds (process running for 3.413)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,10 +1,15 @@
 package com.modak.notification.service;
 import com.modak.notification.model.Notification;
 import com.modak.notification.model.NotificationType;
+import com.modak.notification.request.NotificationRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,23 +33,28 @@ public class NotificationService {
 
         }
     };
-    public ResponseEntity<String> send(Notification notification) {
-        LocalDateTime instant = LocalDateTime.now();
-        for(NotificationType notificationtype: notificationTypes) {
-           if(Objects.equals(notification.getNotificationType().getType(), notificationtype.getType())){
-               if(notification.getDateSent()==null){
-                   notification.setDateSent(LocalDateTime.now());
-                   return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + notification.getRecipient());
-               }else{
-                   if((instant.minusSeconds(notification.getNotificationType().getIntervalInSeconds())).isAfter(notification.getDateSent())) {
-                       return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + notification.getRecipient());
-                   }
-                   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not send more Notifications " + notification.getRecipient()+" Exceded Quantity of Requests");
-               }
-           }
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + notification.getRecipient());
-    }
+    public ResponseEntity<String> send(NotificationRequest request) {
+        try {
+            LocalDateTime instant = LocalDateTime.now();
+            for (NotificationType notificationtype : notificationTypes) {
+                if (Objects.equals(request.getType(), notificationtype.getType())) {
+                    if (request.getDateSent() == null) {
+                        return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + request.getRecipient());
+                    } else {
+                        if (request.getDateSent().plus(Duration.ofSeconds(notificationtype.getIntervalInSeconds())).isBefore(LocalDateTime.now())) {
+                            return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + request.getRecipient());
+                        }
+                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Could not send more Notifications " + request.getRecipient() + " Exceded Quantity of Requests");
+                    }
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("Sending Notification to " + request.getRecipient());
 
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in the Notification Service");
+        }
+    }
 }
+
+
 

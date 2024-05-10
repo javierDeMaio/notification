@@ -1,19 +1,28 @@
 package com.modak.notification;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.modak.notification.controller.NotificationController;
 import com.modak.notification.model.Notification;
 import com.modak.notification.model.NotificationType;
+import com.modak.notification.request.NotificationRequest;
 import com.modak.notification.service.NotificationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class NotificationApplicationTests {
@@ -21,6 +30,7 @@ class NotificationApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
 	private NotificationService notificationService;
 
 	@BeforeEach
@@ -30,40 +40,46 @@ class NotificationApplicationTests {
 
 	@Test
 	public void testSendNotification_Success() {
-		NotificationType notificationType = NotificationType.builder()
-				.type("Status")
-				.intervalInSeconds(30L)
-				.build();
-		Notification notification = new Notification(notificationType, "recipient", "content","javierdemaio1@gmail.com", null);
-		ResponseEntity<String> response = notificationService.send(notification);
+		ResponseEntity<String> response = notificationService.send(getRequest2());
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 
 	}
 
 	@Test
 	public void testSendNotification_Success_After() {
-		NotificationType notificationType = NotificationType.builder()
-				.type("News")
-				.intervalInSeconds(86400L)
-				.build();
-		Notification notification = new Notification(notificationType, "recipient", "content","javierdemaio1@gmail.com", LocalDateTime.now().minusSeconds(86401L));
-		ResponseEntity<String> response = notificationService.send(notification);
+		ResponseEntity<String> response = notificationService.send(getRequest());
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 
 	}
 
 	@Test
 	public void testSendNotification_RateLimitExceeded() {
-		NotificationType notificationType = NotificationType.builder()
-				.type("News")
-				.intervalInSeconds(86400L)
-				.build();
-		Notification notification = new Notification(notificationType, "recipient", "content","javierdemaio1@gmail.com", LocalDateTime.now());
-		notification.setDateSent(LocalDateTime.now()); // Simula un envío anterior hace más de 30 segundos
-		ResponseEntity<String> response = notificationService.send(notification);
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+		ResponseEntity<String> response = notificationService.send(getRequest3());
+		assertEquals(HttpStatus.TOO_MANY_REQUESTS, response.getStatusCode());
 
 	}
 
-
+	private NotificationRequest getRequest(){
+		NotificationRequest request = new NotificationRequest();
+		request.setType("Status");
+		request.setRecipient("Javierdemaio1@gmail.com");
+		request.setDateSent(LocalDateTime.now().minus(100000L, ChronoUnit.SECONDS));
+		return request;
+	}
+	private NotificationRequest getRequest2(){
+		NotificationRequest request = new NotificationRequest();
+		request.setType("Status");
+		request.setRecipient("Javierdemaio1@gmail.com");
+		request.setDateSent(null);
+		return request;
+	}
+	private NotificationRequest getRequest3(){
+		NotificationRequest request = new NotificationRequest();
+		request.setType("News");
+		request.setRecipient("Javierdemaio1@gmail.com");
+		request.setDateSent(LocalDateTime.now());
+		return request;
+	}
 }
+
+

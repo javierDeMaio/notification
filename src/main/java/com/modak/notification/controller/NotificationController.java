@@ -1,6 +1,6 @@
 package com.modak.notification.controller;
 
-import com.modak.notification.model.Notification;
+import com.modak.notification.request.NotificationRequest;
 import com.modak.notification.service.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,12 @@ public class NotificationController {
     private NotificationService service;
 
     @PostMapping("/send")
-    public ResponseEntity<String> send(@RequestBody Notification notification){
+    public void send(@RequestBody NotificationRequest request){
         try{
-            return service.send(notification);
+            service.send(request);
         } catch(Exception e){
             log.error(e.getMessage());
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Sending Notification");
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Sending Notification");
         }
   }
 }
