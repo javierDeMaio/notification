@@ -1,5 +1,4 @@
 package com.modak.notification.service;
-import com.modak.notification.model.Notification;
 import com.modak.notification.model.NotificationType;
 import com.modak.notification.request.NotificationRequest;
 import org.springframework.http.HttpStatus;
@@ -7,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
