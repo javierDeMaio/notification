@@ -18,6 +18,6 @@
     "type":"News"
 }
 # Responses:
-# 200 OK: The notification was successfully sent.
-# 429 Too many requests: Could not send more Notifications "Recipient" Exceded Quantity of Requests.
-# 500 Internal Server Error: An error occurred while sending the notification.
+ 200 OK: The notification was successfully sent.
+ 429 Too many requests: Could not send more Notifications "Recipient" Exceded Quantity of Requests.
+ 500 Internal Server Error: An error occurred while sending the notification.

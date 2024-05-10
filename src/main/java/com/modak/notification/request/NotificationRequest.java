@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 public class NotificationRequest {
     private String type;
-    private String recipient;
-    private LocalDateTime dateSent;
+    private String userId;
+    private String message;
 
 }
